@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>男孩、鼴鼠、狐狸與馬｜和平大冒險</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #e9e4d8;
+    font-family:
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+    color: #514940;
+}
+
+.page {
+    width: 720px;
+    min-height: 1030px;
+    margin: 20px auto;
+    padding: 32px 42px 35px;
+    background: #fffdf7;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 標題 */
+
+.title {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 31px;
+    letter-spacing: 2px;
+    color: #5d5147;
+}
+
+.title p {
+    margin: 8px 0 0;
+    font-size: 17px;
+    color: #8b7d70;
+}
+
+/* 開始頁 */
+
+.start-screen {
+    display: block;
+}
+
+.intro {
+    margin: 20px 0;
+    padding: 15px 20px;
+    background: #f3eadb;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.start-title {
+    text-align: center;
+    font-size: 21px;
+    margin: 25px 0 18px;
+    font-weight: bold;
+}
+
+.character-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.character-card {
+    padding: 18px 12px;
+    border-radius: 20px;
+    text-align: center;
+    border: 3px solid #ded2c2;
+    background: #fff;
+}
+
+.character-icon {
+    font-size: 43px;
+}
+
+.character-card h2 {
+    font-size: 20px;
+    margin: 7px 0;
+}
+
+.character-card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #7d7167;
+}
+
+.start-button {
+    display: block;
+    margin: 25px auto 0;
+    border: none;
+    border-radius: 16px;
+    padding: 12px 30px;
+    background: #9b8268;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 主持人提示 */
+
+.host-note {
+    margin-top: 20px;
+    padding: 13px 17px;
+    background: #f7f2e9;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 測驗 */
+
+.quiz {
+    display: none;
+}
+
+.progress {
+    text-align: center;
+    font-size: 14px;
+    color: #9b8c7e;
+    margin: 10px 0 12px;
+}
+
+.question-card {
+    border: 3px solid #d9cbb9;
+    border-radius: 25px;
+    padding: 25px 23px;
+    background: #fff;
+    text-align: center;
+}
+
+.question-number {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1e5d3;
+    border: 3px solid #c8ad8b;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.question-card h2 {
+    font-size: 22px;
+    line-height: 1.6;
+    margin: 16px 0 22px;
+}
+
+.option {
+    margin: 12px 0;
+    padding: 16px 18px;
+    border: 3px solid #ded4c8;
+    border-radius: 18px;
+    background: #fffdf9;
+    text-align: left;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.option-label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.heart {
+    float: right;
+    font-size: 22px;
+}
+
+.next-button {
+    margin-top: 18px;
+    border: none;
+    border-radius: 15px;
+    padding: 11px 25px;
+    background: #9b8268;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 提示 */
+
+.record-note {
+    margin-top: 17px;
+    padding: 14px;
+    background: #f5f0e7;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.record-note strong {
+    color: #806b55;
+}
+
+/* 結果 */
+
+.result {
+    display: none;
+    text-align: center;
+}
+
+.result-intro {
+    margin: 20px 0 15px;
+    padding: 14px;
+    background: #f3eadb;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 切換按鈕群 */
+.tab-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tab-button {
+    padding: 10px 4px;
+    border: 2px solid #d4c4b0;
+    border-radius: 14px;
+    background: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    color: #6d5f52;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-button:hover {
+    background: #f8f1e6;
+}
+
+.tab-button.active {
+    background: #9b8268;
+    color: white;
+    border-color: #806b55;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.result-box {
+    border: 4px solid #c9b291;
+    border-radius: 28px;
+    padding: 27px 22px;
+    background: #faf3e5;
+    transition: background-color 0.3s ease;
+}
+
+.result-icon {
+    font-size: 65px;
+}
+
+.result-title {
+    font-size: 30px;
+    margin: 10px 0;
+    color: #5e5247;
+}
+
+.result-text {
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.quote {
+    margin-top: 18px;
+    padding: 14px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 17px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+.score-box {
+    margin-top: 20px;
+    padding: 16px;
+    background: white;
+    border-radius: 18px;
+    font-size: 17px;
+    line-height: 2;
+}
+
+.restart {
+    margin-top: 20px;
+    border: none;
+    border-radius: 15px;
+    padding: 11px 25px;
+    background: #9b8268;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.final-note {
+    margin-top: 20px;
+    padding: 17px;
+    background: #f5f0e7;
+    border-radius: 18px;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* 手機 */
+
+@media (max-width: 760px) {
+
+    .page {
+        width: calc(100% - 20px);
+        margin: 10px auto;
+        padding: 25px 20px;
+    }
+
+    .title h1 {
+        font-size: 25px;
+    }
+
+    .character-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tab-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .question-card h2 {
+        font-size: 19px;
+    }
+
+    .option {
+        font-size: 16px;
+    }
+}
+
+/* 列印 */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .page {
+        margin: 0;
+        width: 720px;
+        box-shadow: none;
+    }
+
+    button {
+        display: none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- 標題 -->
+
+    <div class="title">
+
+        <h1>《男孩、鼴鼠、狐狸與馬》</h1>
+
+        <p>🌳 和平大冒險｜看看你比較像誰？</p>
+
+    </div>
+
+
+    <!-- =========================
+         開始
+    ========================== -->
+
+    <div id="startScreen" class="start-screen">
+
+        <div class="intro">
+
+            有一天，你走進和平校園的大榕樹下。<br>
+
+            接下來，你會遇到一些小小的冒險。
+
+            <br>
+
+            <strong>如果是你，你會怎麼做？</strong>
+
+        </div>
+
+
+        <div class="start-title">
+
+            🐾 故事裡的四個朋友
+
+        </div>
+
+
+        <div class="character-container">
+
+            <div class="character-card">
+
+                <div class="character-icon">👦</div>
+
+                <h2>男孩</h2>
+
+                <p>
+                    喜歡問問題、探索世界，
+                    願意和朋友一起走走看。
+                </p>
+
+            </div>
+
+
+            <div class="character-card">
+
+                <div class="character-icon">🐭</div>
+
+                <h2>鼴鼠</h2>
+
+                <p>
+                    有時害怕、有時脆弱，
+                    但願意說出自己的感受。
+                </p>
+
+            </div>
+
+
+            <div class="character-card">
+
+                <div class="character-icon">🦊</div>
+
+                <h2>狐狸</h2>
+
+                <p>
+                    不一定很會說話，
+                    卻很懂得安靜地陪伴。
+                </p>
+
+            </div>
+
+
+            <div class="character-card">
+
+                <div class="character-icon">🐴</div>
+
+                <h2>馬</h2>
+
+                <p>
+                    溫柔、鼓勵朋友，
+                    總是願意給別人力量。
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="host-note">
+
+            🎤 <strong>主持人玩法：</strong>
+
+            主持人負責操作平板、念題目。
+
+            <br>
+
+            小朋友不用碰平板，
+
+            只要在自己的小卡上記下每一題的愛心顏色。
+
+        </div>
+
+
+        <button
+            class="start-button"
+            onclick="startQuiz()"
+        >
+            🌱 開始冒險
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         題目
+    ========================== -->
+
+    <div id="quiz" class="quiz">
+
+        <div
+            id="progress"
+            class="progress"
+        >
+            第 1 關 / 4 關
+        </div>
+
+
+        <div class="question-card">
+
+            <div
+                id="questionNumber"
+                class="question-number"
+            >
+                ①
+            </div>
+
+
+            <h2 id="questionText">
+                題目
+            </h2>
+
+
+            <div id="options">
+            </div>
+
+
+            <button
+                id="nextButton"
+                class="next-button"
+                onclick="nextQuestion()"
+            >
+                下一關 →
+            </button>
+
+        </div>
+
+
+        <div class="record-note">
+
+            ❤️ <strong>請記住你選的愛心！</strong>
+
+            <br>
+
+            每一題只選一個答案，
+
+            把那顆愛心記在自己的小卡上。
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         結果
+    ========================== -->
+
+    <div id="result" class="result">
+
+        <div class="result-intro">
+
+            🌈 冒險完成！
+
+            <br>
+
+            現在請點選按鈕，來看看每位角色的故事：
+
+        </div>
+
+        <!-- 角色切換按鈕區 -->
+        <div class="tab-container">
+            <button class="tab-button" onclick="selectCharacter('boy')">💚 男孩</button>
+            <button class="tab-button" onclick="selectCharacter('mole')">🧡 鼴鼠</button>
+            <button class="tab-button" onclick="selectCharacter('fox')">💙 狐狸</button>
+            <button class="tab-button" onclick="selectCharacter('horse')">💛 馬</button>
+        </div>
+
+        <!-- 角色介紹卡片 -->
+        <div class="result-box">
+
+            <div
+                id="resultIcon"
+                class="result-icon"
+            >
+                👦
+            </div>
+
+
+            <div
+                id="resultTitle"
+                class="result-title"
+            >
+                你是男孩！
+            </div>
+
+
+            <div
+                id="resultText"
+                class="result-text"
+            >
+                你有一顆好奇的心。
+            </div>
+
+
+            <div
+                id="quote"
+                class="quote"
+            >
+                「我們一起去看看，說不定會發現什麼！」
+            </div>
+
+        </div>
+
+
+        <div
+            id="scoreBox"
+            class="score-box"
+        >
+        </div>
+
+
+        <div class="final-note">
+
+            🌳 在這趟冒險裡，
+
+            你可能發現：
+
+            <br><br>
+
+            有時候我們需要像馬一樣鼓勵朋友，
+
+            有時候像狐狸一樣陪伴，
+
+            有時候像鼴鼠一樣勇敢說出感受，
+
+            有時候也可以像男孩一樣，
+
+            帶著好奇心繼續往前走。
+
+            <br><br>
+
+            <strong>
+                而最棒的是——
+                我們不一定只能像一個角色。
+            </strong>
+
+        </div>
+
+
+        <button
+            class="restart"
+            onclick="restartQuiz()"
+        >
+            🔄 再玩一次
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =========================
+   四個角色
+========================= */
+
+const characters = {
+
+    boy: {
+        icon: "👦",
+        title: "你是男孩！",
+        text:
+        "你有一顆好奇的心。遇到事情時，你喜歡問問看、試試看，也願意和朋友一起探索。",
+        quote:
+        "「我們一起去看看，說不定會發現什麼！」"
+    },
+
+    mole: {
+        icon: "🐭",
+        title: "你是鼴鼠！",
+        text:
+        "你很真實。你可能會害怕、會難過，也會需要別人的幫忙，但你願意把自己的感受說出來。",
+        quote:
+        "「我有一點害怕，可以陪我一起嗎？」"
+    },
+
+    fox: {
+        icon: "🦊",
+        title: "你是狐狸！",
+        text:
+        "你很懂得陪伴。有時候不需要很多話，只要安靜地待在朋友身邊，就能讓對方知道自己不是一個人。",
+        quote:
+        "「我陪你。」"
+    },
+
+    horse: {
+        icon: "🐴",
+        title: "你是馬！",
+        text:
+        "你很會鼓勵別人。當朋友不確定自己的時候，你會給他力量，讓他知道自己已經做得很好。",
+        quote:
+        "「你已經做得很好了。」"
+    }
+
+};
+
+
+/* =========================
+   四個愛心
+========================= */
+
+const hearts = {
+
+    boy: "💚",
+    mole: "🧡",
+    fox: "💙",
+    horse: "💛"
+
+};
+
+
+/* =========================
+   四道題
+========================= */
+
+const questions = [
+
+    {
+        text:
+        "你走到和平大榕樹下，發現朋友一個人坐在旁邊，看起來有點難過。你會……",
+
+        options: [
+
+            {
+                text:
+                "「怎麼了？你願意告訴我嗎？」",
+                type:
+                "mole"
+            },
+
+            {
+                text:
+                "坐到他旁邊，陪他一會兒。",
+                type:
+                "fox"
+            },
+
+            {
+                text:
+                "「我們一起去走走，也許心情會好一點！」",
+                type:
+                "boy"
+            },
+
+            {
+                text:
+                "「沒關係，我陪你，你已經做得很好了。」",
+                type:
+                "horse"
+            }
+
+        ]
+    },
+
+
+    {
+        text:
+        "突然下起大雨，你和朋友都沒有帶傘。這時候你會……",
+
+        options: [
+
+            {
+                text:
+                "「我們去找地方躲雨，看看哪裡可以避雨！」",
+                type:
+                "boy"
+            },
+
+            {
+                text:
+                "「我其實有點害怕，我們可以一起走嗎？」",
+                type:
+                "mole"
+            },
+
+            {
+                text:
+                "把自己能找到的遮雨地方讓給朋友。",
+                type:
+                "horse"
+            },
+
+            {
+                text:
+                "什麼也不急著說，陪朋友一起慢慢找地方。",
+                type:
+                "fox"
+            }
+
+        ]
+    },
+
+
+    {
+        text:
+        "你發現朋友不小心把你很喜歡的東西弄壞了，你會……",
+
+        options: [
+
+            {
+                text:
+                "先問問朋友：「你是不是也很難過？」",
+                type:
+                "horse"
+            },
+
+            {
+                text:
+                "告訴朋友：「我真的很難過，你可以聽我說嗎？」",
+                type:
+                "mole"
+            },
+
+            {
+                text:
+                "「沒關係，我們一起想想還能不能修好。」",
+                type:
+                "boy"
+            },
+
+            {
+                text:
+                "先陪朋友坐一下，等兩個人都比較平靜。",
+                type:
+                "fox"
+            }
+
+        ]
+    },
+
+
+    {
+        text:
+        "冒險快結束了，你和朋友要一起往前走。你最想做的是……",
+
+        options: [
+
+            {
+                text:
+                "「走吧！前面一定還有好多有趣的事情！」",
+                type:
+                "boy"
+            },
+
+            {
+                text:
+                "「如果你害怕，我可以陪你一起。」",
+                type:
+                "horse"
+            },
+
+            {
+                text:
+                "「其實我有點捨不得，我想告訴你。」",
+                type:
+                "mole"
+            },
+
+            {
+                text:
+                "什麼都不用說，和朋友一起慢慢走。",
+                type:
+                "fox"
+            }
+
+        ]
+    }
+
+];
+
+
+/* =========================
+   程式變數
+========================= */
+
+let currentQuestion = 0;
+
+
+/* =========================
+   開始
+========================= */
+
+function startQuiz() {
+
+    currentQuestion = 0;
+
+    document.getElementById("startScreen").style.display = "none";
+
+    document.getElementById("quiz").style.display = "block";
+
+    showQuestion();
+
+}
+
+
+/* =========================
+   顯示題目
+========================= */
+
+function showQuestion() {
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("progress").innerText =
+        "第 " +
+        (currentQuestion + 1) +
+        " 關 / " +
+        questions.length +
+        " 關";
+
+
+    const number =
+        ["①","②","③","④"][currentQuestion];
+
+    document.getElementById("questionNumber").innerText =
+        number;
+
+
+    document.getElementById("questionText").innerText =
+        q.text;
+
+
+    const options =
+        document.getElementById("options");
+
+    options.innerHTML = "";
+
+
+    q.options.forEach(function(option, index) {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "option";
+
+        div.innerHTML =
+
+            "<span class='option-label'>" +
+
+            String.fromCharCode(65 + index) +
+
+            ".</span>" +
+
+            option.text +
+
+            "<span class='heart'>" +
+
+            hearts[option.type] +
+
+            "</span>";
+
+        options.appendChild(div);
+
+    });
+
+
+    if (currentQuestion === questions.length - 1) {
+
+        document.getElementById("nextButton").innerText =
+            "🌈 看看我是誰！";
+
+    } else {
+
+        document.getElementById("nextButton").innerText =
+            "下一關 →";
+
+    }
+
+}
+
+
+/* =========================
+   下一題
+========================= */
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    if (currentQuestion >= questions.length) {
+
+        showResult();
+
+    } else {
+
+        showQuestion();
+
+    }
+
+}
+
+
+/* =========================
+   切換展示特定角色
+========================= */
+
+function selectCharacter(charKey) {
+    const data = characters[charKey];
+    if (!data) return;
+
+    document.getElementById("resultIcon").innerText = data.icon;
+    document.getElementById("resultTitle").innerText = data.title;
+    document.getElementById("resultText").innerText = data.text;
+    document.getElementById("quote").innerText = data.quote;
+
+    // 更新按鈕 active 樣式
+    const buttons = document.querySelectorAll(".tab-button");
+    const roleKeys = ["boy", "mole", "fox", "horse"];
+    buttons.forEach((btn, idx) => {
+        if (roleKeys[idx] === charKey) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+}
+
+
+/* =========================
+   顯示結果
+========================= */
+
+function showResult() {
+
+    document.getElementById("quiz").style.display =
+        "none";
+
+    document.getElementById("result").style.display =
+        "block";
+
+    // 預設先顯示第一個角色（男孩）
+    selectCharacter("boy");
+
+    document.getElementById("scoreBox").innerHTML =
+
+        "💚 男孩愛心　　🧡 鼴鼠愛心　　💙 狐狸愛心　　💛 馬愛心" +
+
+        "<br><br>" +
+
+        "請數一數自己的四顆愛心，" +
+
+        "<br>" +
+
+        "<strong>哪一種顏色最多，點擊上方按鈕看看那個角色的特質！</strong>";
+
+}
+
+
+/* =========================
+   重新開始
+========================= */
+
+function restartQuiz() {
+
+    document.getElementById("result").style.display =
+        "none";
+
+    document.getElementById("startScreen").style.display =
+        "block";
+
+    currentQuestion = 0;
+
+}
+
+</script>
+
+</body>
+      </html>
+      
