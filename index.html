@@ -149,10 +149,16 @@ body {
 .walking-characters {
     position: absolute;
     left: 50%;
-    bottom: 30px;
+    bottom: 24px;
     transform: translateX(-50%);
-    font-size: 30px;
-    letter-spacing: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.walking-characters svg {
+    width: 36px;
+    height: 36px;
 }
 
 .start-text {
@@ -381,9 +387,18 @@ body {
 }
 
 .result-avatar {
-    font-size: 80px;
-    margin: 8px 0 10px;
+    width: 90px;
+    height: 90px;
+    margin: 8px auto 12px;
     animation: float 2.5s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-avatar svg {
+    width: 100%;
+    height: 100%;
 }
 
 .result-role-small {
@@ -502,7 +517,8 @@ body {
             <div class="tree middle">🌲</div>
             <div class="tree right">🌳</div>
             <div class="path"></div>
-            <div class="walking-characters">👦 🍰 🦊 🐴</div>
+            <!-- 四個向量自製角色的隊伍 -->
+            <div id="walkingTeam" class="walking-characters"></div>
         </div>
 
         <div class="start-text">沒有標準答案，跟著第一個直覺走就好。</div>
@@ -548,7 +564,7 @@ body {
         <div class="result-top">這一路上，你遇見了自己</div>
 
         <div class="result-card">
-            <div id="resultAvatar" class="result-avatar">🐴</div>
+            <div id="resultAvatar" class="result-avatar"></div>
             <div class="result-role-small">原來，你是……</div>
             <div id="resultRole" class="result-role">馬</div>
             <div id="resultSubtitle" class="result-subtitle">溫柔的鼓勵者</div>
@@ -568,31 +584,106 @@ body {
 </div>
 
 <script>
+/* =====================================================
+   四個角色的向量圖 (SVG)
+===================================================== */
+
+const svgIcons = {
+    boy: `<svg viewBox="0 0 100 100">
+        <circle cx="50" cy="52" r="32" fill="#ffd9b3"/>
+        <!-- 蓬鬆棕色頭髮 -->
+        <path d="M 20 48 C 15 25 35 15 50 15 C 65 15 85 25 80 48 C 76 34 68 28 50 28 C 32 28 24 34 20 48 Z" fill="#6d4c3d"/>
+        <circle cx="34" cy="30" r="14" fill="#6d4c3d"/>
+        <circle cx="66" cy="30" r="14" fill="#6d4c3d"/>
+        <circle cx="50" cy="24" r="16" fill="#6d4c3d"/>
+        <!-- 眼睛與腮紅 -->
+        <circle cx="38" cy="53" r="3" fill="#4a3728"/>
+        <circle cx="62" cy="53" r="3" fill="#4a3728"/>
+        <ellipse cx="32" cy="60" rx="4" ry="2.5" fill="#ffb399" opacity="0.6"/>
+        <ellipse cx="68" cy="60" rx="4" ry="2.5" fill="#ffb399" opacity="0.6"/>
+        <!-- 溫暖微笑 -->
+        <path d="M 44 64 Q 50 69 56 64" fill="none" stroke="#6d4c3d" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
+
+    mole: `<svg viewBox="0 0 100 100">
+        <!-- 圓滾滾鼴鼠身體 -->
+        <ellipse cx="50" cy="54" rx="36" ry="34" fill="#4a423b"/>
+        <ellipse cx="28" cy="34" rx="5" ry="7" fill="#3a332d" transform="rotate(-15 28 34)"/>
+        <ellipse cx="72" cy="34" rx="5" ry="7" fill="#3a332d" transform="rotate(15 72 34)"/>
+        <!-- 口鼻與小臉部淺色區 -->
+        <ellipse cx="50" cy="62" rx="17" ry="13" fill="#d9c2ab"/>
+        <circle cx="38" cy="48" r="3" fill="#1b1714"/>
+        <circle cx="62" cy="48" r="3" fill="#1b1714"/>
+        <circle cx="37" cy="47" r="1" fill="#fff"/>
+        <circle cx="61" cy="47" r="1" fill="#fff"/>
+        <!-- 粉嫩小鼻子與小嘴巴 -->
+        <ellipse cx="50" cy="56" rx="4.5" ry="3" fill="#f49c9c"/>
+        <path d="M 47 63 Q 50 66 53 63" fill="none" stroke="#705541" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- 挖土小爪爪 -->
+        <ellipse cx="29" cy="72" rx="6" ry="9" fill="#d9c2ab" transform="rotate(20 29 72)"/>
+        <ellipse cx="71" cy="72" rx="6" ry="9" fill="#d9c2ab" transform="rotate(-20 71 72)"/>
+    </svg>`,
+
+    fox: `<svg viewBox="0 0 100 100">
+        <!-- 狐狸尖耳朵 -->
+        <polygon points="20,44 32,14 48,34" fill="#df6e35"/>
+        <polygon points="26,38 33,22 43,34" fill="#fff5eb"/>
+        <polygon points="80,44 68,14 52,34" fill="#df6e35"/>
+        <polygon points="74,38 67,22 57,34" fill="#fff5eb"/>
+        <!-- 臉型主體 -->
+        <polygon points="22,46 78,46 50,84" fill="#df6e35"/>
+        <!-- 白臉頰 -->
+        <polygon points="22,46 50,84 34,56" fill="#fff5eb"/>
+        <polygon points="78,46 50,84 66,56" fill="#fff5eb"/>
+        <!-- 聰慧靈動眼睛 -->
+        <ellipse cx="38" cy="47" rx="3.5" ry="2.2" fill="#382214" transform="rotate(-10 38 47)"/>
+        <ellipse cx="62" cy="47" rx="3.5" ry="2.2" fill="#382214" transform="rotate(10 62 47)"/>
+        <!-- 黑色小鼻頭 -->
+        <circle cx="50" cy="81" r="3.5" fill="#2c1a0e"/>
+    </svg>`,
+
+    horse: `<svg viewBox="0 0 100 100">
+        <!-- 小馬耳朵 -->
+        <ellipse cx="36" cy="22" rx="5" ry="11" fill="#ece6dd" transform="rotate(-15 36 22)"/>
+        <ellipse cx="36" cy="22" rx="2.5" ry="7" fill="#dfcfbe" transform="rotate(-15 36 22)"/>
+        <!-- 頭部輪廓 -->
+        <path d="M 38 28 Q 62 26 62 48 Q 60 74 54 82 Q 44 84 40 76 Q 42 54 38 28 Z" fill="#f5f0e8"/>
+        <!-- 柔和白金鬃毛 -->
+        <path d="M 38 26 Q 30 38 34 60 Q 30 46 34 32 Z" fill="#ded4c5"/>
+        <path d="M 44 26 Q 46 16 52 26 Q 50 20 44 26 Z" fill="#ded4c5"/>
+        <!-- 溫柔微垂眼眸 -->
+        <ellipse cx="52" cy="44" rx="3.2" ry="2.2" fill="#443a32"/>
+        <path d="M 48 42 Q 53 40 56 43" fill="none" stroke="#443a32" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 鼻孔與口鼻 -->
+        <circle cx="48" cy="77" r="1.6" fill="#baa996"/>
+    </svg>`
+};
+
 const characters = {
     boy: {
         name: "男孩",
-        icon: "👦",
+        icon: svgIcons.boy,
         subtitle: "帶著好奇前進的人",
         desc: "你心中裝滿了對世界的好奇。面對未知或困難時，你喜歡問問看、試試看，也願意帶著身邊的人一起往前走。",
         quote: "「前面一定還有更多從沒見過的風景在等著我們！」"
     },
     mole: {
         name: "鼴鼠",
-        icon: "🍰",
+        icon: svgIcons.mole,
         subtitle: "坦誠而真實的人",
         desc: "你願意承認自己的害怕，也願意說出自己的感受。你知道，能夠坦白地說「我需要你」，並不是軟弱，而是一種勇敢。",
         quote: "「我有一點害怕，可以陪我一起嗎？」"
     },
     fox: {
         name: "狐狸",
-        icon: "🦊",
+        icon: svgIcons.fox,
         subtitle: "安靜的陪伴者",
         desc: "你不一定是最會說話的人，但你很懂得在重要的時候留下來。有些時候，不需要急著解決什麼，只要有人陪著，就已經很好了。",
         quote: "「我陪你，我就在這裡。」"
     },
     horse: {
         name: "馬",
-        icon: "🐴",
+        icon: svgIcons.horse,
         subtitle: "溫柔的鼓勵者",
         desc: "當身邊的人懷疑自己、害怕或受挫時，你總願意給他一點力量。你不替別人走路，而是讓他重新相信——自己可以繼續往前走。",
         quote: "「你已經做得很好了。」"
@@ -644,6 +735,14 @@ const questions = [
 
 let currentIndex = 0;
 let userPicks = [];
+
+// 初始化首頁角色隊伍
+document.getElementById("walkingTeam").innerHTML = `
+    ${svgIcons.boy}
+    ${svgIcons.mole}
+    ${svgIcons.fox}
+    ${svgIcons.horse}
+`;
 
 function startQuiz() {
     currentIndex = 0;
@@ -732,7 +831,7 @@ function showResult() {
 
     const result = characters[primaryRole];
 
-    document.getElementById("resultAvatar").innerText = result.icon;
+    document.getElementById("resultAvatar").innerHTML = result.icon;
     document.getElementById("resultRole").innerText = result.name;
     document.getElementById("resultSubtitle").innerText = result.subtitle;
     document.getElementById("resultDesc").innerText = result.desc;
