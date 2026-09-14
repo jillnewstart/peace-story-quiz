@@ -642,20 +642,36 @@ const svgIcons = {
         <circle cx="50" cy="81" r="3.5" fill="#2c1a0e"/>
     </svg>`,
 
+    // 重新調配的「溫潤手繪墨線白馬」，純白主體在任何背景皆清晰鮮明
     horse: `<svg viewBox="0 0 100 100">
-        <!-- 小馬耳朵 -->
-        <ellipse cx="36" cy="22" rx="5" ry="11" fill="#ece6dd" transform="rotate(-15 36 22)"/>
-        <ellipse cx="36" cy="22" rx="2.5" ry="7" fill="#dfcfbe" transform="rotate(-15 36 22)"/>
-        <!-- 頭部輪廓 -->
-        <path d="M 38 28 Q 62 26 62 48 Q 60 74 54 82 Q 44 84 40 76 Q 42 54 38 28 Z" fill="#f5f0e8"/>
-        <!-- 柔和白金鬃毛 -->
-        <path d="M 38 26 Q 30 38 34 60 Q 30 46 34 32 Z" fill="#ded4c5"/>
-        <path d="M 44 26 Q 46 16 52 26 Q 50 20 44 26 Z" fill="#ded4c5"/>
-        <!-- 溫柔微垂眼眸 -->
-        <ellipse cx="52" cy="44" rx="3.2" ry="2.2" fill="#443a32"/>
-        <path d="M 48 42 Q 53 40 56 43" fill="none" stroke="#443a32" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- 鼻孔與口鼻 -->
-        <circle cx="48" cy="77" r="1.6" fill="#baa996"/>
+        <!-- 左、右耳朵（純白基底＋溫柔內耳微粉膚色＋墨線） -->
+        <path d="M 33 30 L 25 10 C 34 12 39 20 37 30 Z" fill="#ffffff" stroke="#8c745d" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M 32 26 L 27 15 C 33 16 36 21 35 26 Z" fill="#f5ded5"/>
+        
+        <path d="M 67 30 L 75 10 C 66 12 61 20 63 30 Z" fill="#ffffff" stroke="#8c745d" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M 68 26 L 73 15 C 67 16 64 21 65 26 Z" fill="#f5ded5"/>
+
+        <!-- 白馬頭部正面輪廓（純白毛皮＋清晰手繪墨線） -->
+        <ellipse cx="50" cy="52" rx="31" ry="33" fill="#ffffff" stroke="#8c745d" stroke-width="2.4"/>
+
+        <!-- 額頭垂落的柔和白金色鬃毛 -->
+        <path d="M 39 20 Q 50 13 61 20 Q 54 36 48 38 Q 43 31 39 20 Z" fill="#f2ede4" stroke="#8c745d" stroke-width="1.8" stroke-linejoin="round"/>
+
+        <!-- 溫柔慈愛的微笑雙眸（深棕墨色，神采鮮明） -->
+        <path d="M 35 47 Q 40 42 45 47" fill="none" stroke="#523e2d" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M 55 47 Q 60 42 65 47" fill="none" stroke="#523e2d" stroke-width="2.8" stroke-linecap="round"/>
+
+        <!-- 臉頰溫暖腮紅 -->
+        <ellipse cx="32" cy="56" rx="4.5" ry="3" fill="#f6baba" opacity="0.6"/>
+        <ellipse cx="68" cy="56" rx="4.5" ry="3" fill="#f6baba" opacity="0.6"/>
+
+        <!-- 稍微帶有層次米白色的口鼻部 -->
+        <ellipse cx="50" cy="67" rx="16" ry="12" fill="#faf6ef" stroke="#8c745d" stroke-width="2"/>
+
+        <!-- 小鼻孔與溫和微笑嘴角 -->
+        <ellipse cx="44" cy="65" rx="2" ry="2.6" fill="#78614c"/>
+        <ellipse cx="56" cy="65" rx="2" ry="2.6" fill="#78614c"/>
+        <path d="M 46 72 Q 50 75 54 72" fill="none" stroke="#78614c" stroke-width="2.2" stroke-linecap="round"/>
     </svg>`
 };
 
