@@ -286,6 +286,10 @@ body {
 
 .option-item {
     position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
     padding: 16px 20px;
     background: rgba(255,253,248,.88);
     border: 1px solid #e1d6c8;
@@ -298,8 +302,9 @@ body {
 
 .option-item::before {
     content: "○";
-    margin-right: 10px;
+    flex-shrink: 0;
     color: #b19d87;
+    margin-right: 0;
 }
 
 .option-item:hover {
@@ -601,7 +606,7 @@ const questions = [
         options: [
             { text: "「你好！你喜歡吃什麼？」先和牠聊聊天。", role: "boy" },
             { text: "「我其實也有一點害羞，可以跟你做朋友嗎？」", role: "mole" },
-            { text: "不急著說話，坐在洞口附近，等牠想聊天。", role: "fox" },
+            { text: "「先不急著說話。」坐在洞口附近，等牠想聊天。", role: "fox" },
             { text: "「不用急，我們慢慢來就好。」", role: "horse" }
         ]
     },
@@ -611,7 +616,7 @@ const questions = [
         options: [
             { text: "「我也有最喜歡的東西！我們來分享吧。」", role: "boy" },
             { text: "「我也好想吃蛋糕，我可以再吃一塊嗎？」", role: "mole" },
-            { text: "安靜聽朋友說，等大家一起分享蛋糕。", role: "fox" },
+            { text: "「大家一起吃最棒了。」安靜聽朋友說，等大家一起分享蛋糕。", role: "fox" },
             { text: "「你喜歡蛋糕，這件事很棒！」", role: "horse" }
         ]
     },
@@ -621,7 +626,7 @@ const questions = [
         options: [
             { text: "「我們要去前面探險，你要不要一起來？」", role: "boy" },
             { text: "「你是不是有一點害怕？我也會害怕。」", role: "mole" },
-            { text: "不打擾牠，默默坐在旁邊，讓牠知道你在這裡。", role: "fox" },
+            { text: "「我在這裡陪你。」不打擾牠，默默坐在旁邊。", role: "fox" },
             { text: "「你不用急著說話，我們都很歡迎你。」", role: "horse" }
         ]
     },
@@ -631,7 +636,7 @@ const questions = [
         options: [
             { text: "「我們一起想想看，要怎麼走到河的另一邊！」", role: "boy" },
             { text: "「我也有點害怕，我們可以一起試試看嗎？」", role: "mole" },
-            { text: "靠近男孩，陪他一起慢慢走。", role: "fox" },
+            { text: "「我們一步一步走。」靠近男孩，陪他慢慢前進。", role: "fox" },
             { text: "「你已經做得很好了。害怕的時候，我們可以一起走。」", role: "horse" }
         ]
     }
