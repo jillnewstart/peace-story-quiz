@@ -364,7 +364,7 @@ body {
 }
 
 .result-card {
-    padding: 25px 20px 30px;
+    padding: 28px 24px 34px;
     background:
         linear-gradient(
             180deg,
@@ -420,62 +420,19 @@ body {
 }
 
 /* =========================
-   特質分布
-========================= */
-
-.traits-panel {
-    margin-top: 25px;
-    padding: 20px;
-    background: rgba(255,255,255,.65);
-    border-top: 1px solid #e8ddd0;
-    border-bottom: 1px solid #e8ddd0;
-}
-
-.traits-title {
-    font-size: 15px;
-    color: #8d7c6b;
-    margin-bottom: 18px;
-}
-
-.trait-row {
-    margin-bottom: 13px;
-}
-
-.trait-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    color: #756658;
-    margin-bottom: 5px;
-}
-
-.trait-track {
-    height: 7px;
-    background: #eee7dd;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.trait-fill {
-    height: 100%;
-    background: #b29d86;
-    border-radius: 10px;
-    transition: width 1s ease;
-}
-
-/* =========================
    結果結尾
 ========================= */
 
 .result-ending {
-    margin: 27px auto;
-    font-size: 15px;
-    line-height: 2;
-    color: #867565;
+    margin: 35px auto 28px;
+    max-width: 540px;
+    font-size: 16px;
+    line-height: 2.1;
+    color: #7a6a5b;
 }
 
 .restart-btn {
-    padding: 11px 28px;
+    padding: 12px 32px;
     background: transparent;
     color: #806b57;
     border: 1px solid #bbaa96;
@@ -540,7 +497,7 @@ body {
             <div class="tree middle">🌲</div>
             <div class="tree right">🌳</div>
             <div class="path"></div>
-            <div class="walking-characters">👦 🐭 🦊 🐴</div>
+            <div class="walking-characters">👦 🍰 🦊 🐴</div>
         </div>
 
         <div class="start-text">沒有標準答案，跟著第一個直覺走就好。</div>
@@ -560,7 +517,6 @@ body {
         </div>
 
         <div class="scene-box">
-            <!-- 繪本插畫區域 -->
             <div class="scene-image-wrapper">
                 <img id="sceneImage" src="" alt="繪本場景插畫">
             </div>
@@ -595,14 +551,10 @@ body {
             <div id="resultQuote" class="result-quote">金句</div>
         </div>
 
-        <div class="traits-panel">
-            <div class="traits-title">🌱 你的旅程裡，也有這些朋友</div>
-            <div id="traitsChart"></div>
-        </div>
-
         <div class="result-ending">
-            不管你是哪一個角色，<br>
-            每一個人身上，都有一點男孩、鼴鼠、狐狸和馬。
+            旅程裡，我們會像男孩一樣好奇，像鼴鼠一樣渴望溫暖與蛋糕，<br>
+            有時像狐狸安靜療傷，有時像馬一樣學會勇敢。<br>
+            無論你現在是哪一種模樣，你都已經非常值得被愛。
         </div>
 
         <button class="restart-btn" onclick="resetQuiz()">再走一次小路</button>
@@ -621,7 +573,7 @@ const characters = {
     },
     mole: {
         name: "鼴鼠",
-        icon: "🐭",
+        icon: "🍰",
         subtitle: "坦誠而真實的人",
         desc: "你願意承認自己的害怕，也願意說出自己的感受。你知道，能夠坦白地說「我需要你」，並不是軟弱，而是一種勇敢。",
         quote: "「我有一點害怕，可以陪我一起嗎？」"
@@ -642,7 +594,6 @@ const characters = {
     }
 };
 
-/* 題目資料：使用 .jpg */
 const questions = [
     {
         image: "scene1.jpg",
@@ -710,14 +661,9 @@ function renderQuestion() {
 
     document.getElementById("journeyLabel").innerText = journeyNames[currentIndex];
     document.getElementById("questionNumber").innerText = journeyNames[currentIndex];
-
-    /* 更新圖片來源 */
     document.getElementById("sceneImage").src = q.image;
-
-    /* 題目文字 */
     document.getElementById("questionTitle").innerText = q.title;
 
-    /* 進度點更新 */
     const dots = document.querySelectorAll(".progress-dot");
     dots.forEach((dot, index) => {
         dot.classList.remove("active", "done");
@@ -725,7 +671,6 @@ function renderQuestion() {
         if (index === currentIndex) dot.classList.add("active");
     });
 
-    /* 選項列表 */
     const container = document.getElementById("optionsList");
     container.innerHTML = "";
 
@@ -787,25 +732,6 @@ function showResult() {
     document.getElementById("resultSubtitle").innerText = result.subtitle;
     document.getElementById("resultDesc").innerText = result.desc;
     document.getElementById("resultQuote").innerText = result.quote;
-
-    const chart = document.getElementById("traitsChart");
-    chart.innerHTML = "";
-    const totalAnswered = userPicks.length;
-
-    for (const [key, character] of Object.entries(characters)) {
-        const percent = Math.round((counts[key] / totalAnswered) * 100);
-        chart.innerHTML += `
-            <div class="trait-row">
-                <div class="trait-label">
-                    <span>${character.icon} ${character.name}</span>
-                    <span>${percent}%</span>
-                </div>
-                <div class="trait-track">
-                    <div class="trait-fill" style="width: ${percent}%"></div>
-                </div>
-            </div>
-        `;
-    }
 }
 
 function resetQuiz() {
